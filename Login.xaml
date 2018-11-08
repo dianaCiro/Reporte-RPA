@@ -75,7 +75,7 @@
   <Sequence DisplayName="Login" sap2010:WorkflowViewState.IdRef="Sequence_4">
     <TryCatch DisplayName="Try catch" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Try>
-        <ui:OpenBrowser BrowserType="Chrome" DisplayName="Open browser" Hidden="False" sap2010:WorkflowViewState.IdRef="OpenBrowser_2" NewSession="True" Private="False" UiBrowser="[out_Browser]" Url="[in_config(&quot;urlLoginJira&quot;).ToString]">
+        <ui:OpenBrowser BrowserType="Firefox" DisplayName="Open browser" Hidden="False" sap2010:WorkflowViewState.IdRef="OpenBrowser_2" NewSession="True" Private="False" UiBrowser="[out_Browser]" Url="[in_config(&quot;urlLoginJira&quot;).ToString]">
           <ui:OpenBrowser.Body>
             <ActivityAction x:TypeArguments="x:Object">
               <ActivityAction.Argument>
@@ -165,6 +165,12 @@
                   <InArgument x:TypeArguments="s:Exception">[exception]</InArgument>
                 </Assign.Value>
               </Assign>
+              <If Condition="[Not File.Exists(&quot;Logs\logSystemError.txt&quot;)]" DisplayName="If Log file doesn't exist" sap2010:WorkflowViewState.IdRef="If_4">
+                <If.Then>
+                  <ui:CreateFile Name="{x:Null}" ContinueOnError="True" DisplayName="Create Log file" sap2010:WorkflowViewState.IdRef="CreateFile_2" Path="Logs\logSystemError.txt" />
+                </If.Then>
+              </If>
+              <ui:AppendLine DisplayName="Append line" FileName="Logs\logSystemError.txt" sap2010:WorkflowViewState.IdRef="AppendLine_2" Text="[&quot;SystemError&quot; + Date.Now.ToString + &quot; : &quot;+ out_SystemError.ToString]" />
             </Sequence>
           </ActivityAction>
         </Catch>
@@ -182,17 +188,23 @@
                   <InArgument x:TypeArguments="ui:SelectorNotFoundException">[exception]</InArgument>
                 </Assign.Value>
               </Assign>
+              <If Condition="[Not File.Exists(&quot;Logs\logNotFoundError.txt&quot;)]" DisplayName="If Log file doesn't exist" sap2010:WorkflowViewState.IdRef="If_3">
+                <If.Then>
+                  <ui:CreateFile Name="{x:Null}" ContinueOnError="True" DisplayName="Create Log file" sap2010:WorkflowViewState.IdRef="CreateFile_1" Path="Logs\logNotFoundError.txt" />
+                </If.Then>
+              </If>
+              <ui:AppendLine DisplayName="Append line" FileName="Logs\logNotFoundError.txt" sap2010:WorkflowViewState.IdRef="AppendLine_1" Text="[&quot;Not found error&quot; + Date.Now.ToString + &quot; : &quot; + out_NotFoundError.ToString]" />
             </Sequence>
           </ActivityAction>
         </Catch>
       </TryCatch.Catches>
     </TryCatch>
-    <sads:DebugSymbol.Symbol>dzxDOlxVc2Vyc1xkaWFuYS5jaXJvXERlc2t0b3BccHJveWVjdG8gU1dBTVxSZXBvcnRlXExvZ2luLnhhbWwlSwO/AQ4CAQFMBb0BEAIBAk4JlwEaAgEPnwENqAEYAgEJsAENuQEYAgEDTrQBTsMBAgEuTsgBTvgBAgEsVA+UARoCARCgAQ+nARgCAQqxAQ+4ARgCAQRYEVijAQIBKlkRXSYCASVeEZMBFgIBEaUBPaUBSAIBDaIBPqIBTwIBC7YBTrYBWQIBB7MBT7MBYgIBBViRAVigAQIBK1tWW4MBAgEpW44BW5QBAgEoWUlZVwIBJl4fXjQCARJgFZEBIAIBFGEXkAEiAgEVYhlmJwIBIWcZaykCASBsGXokAgEeexl/LQIBGoABGY4BJAIBGI8BGY8BYAIBFmSsAWTZAQIBJGKqAmK5AgIBInisAXjeAQIBH31zfZIBAgEde5gCe6cCAgEbjAGsAYwB3gECARmPASmPATMCARc=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>dzxDOlxVc2Vyc1xkaWFuYS5jaXJvXERlc2t0b3BccHJveWVjdG8gU1dBTVxSZXBvcnRlXExvZ2luLnhhbWw1SwPLAQ4CAQFMBckBEAIBAk4JlwEaAgEgnwENrgEYAgERtgENxQEYAgEDTrUBTsQBAgE/TskBTvkBAgE9VA+UARoCASGgAQ+nARgCARuoAQ+sARQCARatAQ+tAe0BAgEStwEPvgEYAgEMvwEPwwEUAgEHxAEPxAH2AQIBBFgRWKMBAgE7WRFdJgIBNl4RkwEWAgEipQE9pQFIAgEeogE+ogFPAgEcqAEdqAFVAgEXqgETqgG3AQIBGK0BjwGtAeoBAgEUrQFBrQFaAgETvAFOvAFZAgEPuQFPuQFiAgENvwEdvwFXAgEIwQETwQG5AQIBCcQBkQHEAfMBAgEGxAFBxAFcAgEFWJEBWKABAgE8W1ZbgwECATpbjgFblAECATlZSVlXAgE3Xh9eNAIBI2AVkQEgAgElqgFCqgFIAgEaqgGbAaoBtAECARnBAULBAUgCAQvBAZsBwQG2AQIBCmEXkAEiAgEmYhlmJwIBMmcZaykCATFsGXokAgEvexl/LQIBK4ABGY4BJAIBKY8BGY8BYAIBJ2SsAWTZAQIBNWKqAmK5AgIBM3isAXjeAQIBMH1zfZIBAgEue5gCe6cCAgEsjAGsAYwB3gECASqPASmPATMCASg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="464,94.6666666666667" />
-      <sap2010:ViewStateData Id="UiElementExists_2" sap:VirtualizedContainerService.HintSize="464,68">
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="482.666666666667,94.6666666666667" />
+      <sap2010:ViewStateData Id="UiElementExists_2" sap:VirtualizedContainerService.HintSize="482.666666666667,68">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -219,7 +231,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="358,1001.33333333333">
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="200,52.6666666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -227,7 +239,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,210" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="482.666666666667,210" />
       <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="486,576.666666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -235,7 +247,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="OpenBrowser_2" sap:VirtualizedContainerService.HintSize="500,675.333333333333">
+      <sap2010:ViewStateData Id="OpenBrowser_2" sap:VirtualizedContainerService.HintSize="518.666666666667,52.6666666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -243,15 +255,18 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,60.6666666666667" />
-      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="264,182.666666666667">
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="464,60.6666666666667" />
+      <sap2010:ViewStateData Id="CreateFile_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="464,212" />
+      <sap2010:ViewStateData Id="AppendLine_2" sap:VirtualizedContainerService.HintSize="464,86.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="486,563.333333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="404,22.6666666666667">
+      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="492,22.6666666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -259,31 +274,34 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60.6666666666667" />
-      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="264,182.666666666667">
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="464,60.6666666666667" />
+      <sap2010:ViewStateData Id="CreateFile_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,212" />
+      <sap2010:ViewStateData Id="AppendLine_1" sap:VirtualizedContainerService.HintSize="464,86.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="486,563.333333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Catch`1_2" sap:VirtualizedContainerService.HintSize="404,22.6666666666667">
+      <sap2010:ViewStateData Id="Catch`1_2" sap:VirtualizedContainerService.HintSize="492,633.333333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="418,321.333333333333" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="440,445.333333333333">
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="506,828" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="528,952">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Login_1" sap:VirtualizedContainerService.HintSize="480,525.333333333333" />
+      <sap2010:ViewStateData Id="Login_1" sap:VirtualizedContainerService.HintSize="568,1032" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

@@ -54,8 +54,8 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="KillAllProcesses" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <ui:KillProcess ContinueOnError="{x:Null}" Process="{x:Null}" DisplayName="Kill process" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="chrome" />
-    <sads:DebugSymbol.Symbol>d01DOlxVc2Vyc1xkaWFuYS5jaXJvXERlc2t0b3BccHJveWVjdG8gU1dBTVxQcnVlYmEgQ2llcnJlXEtpbGxBbGxQcm9jZXNzZXMueGFtbAM4AzsOAgEBOQU5pQECAQI5mgE5ogECAQM=</sads:DebugSymbol.Symbol>
+    <ui:KillProcess ContinueOnError="{x:Null}" Process="{x:Null}" DisplayName="Kill process" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="Firefox" />
+    <sads:DebugSymbol.Symbol>d0dDOlxVc2Vyc1xkaWFuYS5jaXJvXERlc2t0b3BccHJveWVjdG8gU1dBTVxSZXBvcnRlXEtpbGxBbGxQcm9jZXNzZXMueGFtbAM4AzsOAgEBOQU5pgECAQI5mgE5owECAQM=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -67,7 +67,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="KillAllProcesses_1" sap:VirtualizedContainerService.HintSize="262,266" />
+      <sap2010:ViewStateData Id="KillAllProcesses_1" sap:VirtualizedContainerService.HintSize="262,226" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
